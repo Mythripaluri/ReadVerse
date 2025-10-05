@@ -27,13 +27,14 @@ const limiter = rateLimit({
 });
 app.use("/api/", limiter);
 
-// CORS - Allow multiple origins for development
+// CORS - Allow multiple origins for development and production
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:8080",
   "http://localhost:8081",
   "http://localhost:3000",
-];
+  process.env.FRONTEND_URL, // Add production frontend URL
+].filter(Boolean); // Remove any undefined values
 
 app.use(
   cors({
